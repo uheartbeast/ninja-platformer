@@ -179,6 +179,7 @@ _data = {
 [node name="Player" type="CharacterBody2D"]
 z_index = 50
 script = ExtResource("1_i3pqv")
+state = 0
 metadata/_edit_group_ = true
 
 [node name="Anchor" type="Node2D" parent="."]
