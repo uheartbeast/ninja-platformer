@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bl7cbq2ma5mjj"]
+[gd_scene load_steps=16 format=3 uid="uid://bl7cbq2ma5mjj"]
 
 [ext_resource type="Script" uid="uid://b4xqkm8dmmdgk" path="res://player.gd" id="1_i3pqv"]
 [ext_resource type="Texture2D" uid="uid://ctx0v1ampqc8a" path="res://ninja_upper.png" id="2_hqtel"]
@@ -9,6 +9,7 @@ size = Vector2(12, 16)
 
 [sub_resource type="Animation" id="Animation_1jxqw"]
 length = 0.001
+step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -20,6 +21,23 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_b26j0"]
+resource_name = "jump"
+length = 0.1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Anchor/SpriteUpper:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [10]
 }
 
 [sub_resource type="Animation" id="Animation_2hs0m"]
@@ -57,9 +75,9 @@ tracks/0/keys = {
 "values": [6]
 }
 
-[sub_resource type="Animation" id="Animation_b26j0"]
-resource_name = "jump"
-length = 0.1
+[sub_resource type="Animation" id="Animation_nvl01"]
+resource_name = "attack"
+length = 0.3
 step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -68,15 +86,16 @@ tracks/0/path = NodePath("Anchor/SpriteUpper:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [10]
+"values": [7, 8, 9]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_b26j0"]
 _data = {
 &"RESET": SubResource("Animation_1jxqw"),
+&"attack": SubResource("Animation_nvl01"),
 &"jump": SubResource("Animation_b26j0"),
 &"run": SubResource("Animation_2hs0m"),
 &"stand": SubResource("Animation_dw050")
@@ -95,6 +114,23 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_n7ghd"]
+resource_name = "jump"
+length = 0.1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Anchor/SpriteLower:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [10]
 }
 
 [sub_resource type="Animation" id="Animation_i3pqv"]
@@ -130,23 +166,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [6]
-}
-
-[sub_resource type="Animation" id="Animation_n7ghd"]
-resource_name = "jump"
-length = 0.1
-step = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Anchor/SpriteLower:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [10]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_sweqy"]
