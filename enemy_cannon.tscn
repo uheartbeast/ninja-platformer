@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://bxgl1x4tatpqj"]
+
+[ext_resource type="Texture2D" uid="uid://br8ixo1amaprg" path="res://cannon_enemy.png" id="1_ur6l4"]
+[ext_resource type="Script" uid="uid://qjrnpv4tbvkp" path="res://hurtbox.gd" id="2_0g0tg"]
+[ext_resource type="Script" uid="uid://cqxr3go31xf5c" path="res://hitbox.gd" id="3_4if56"]
+
+[node name="EnemyCannon" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -8)
+texture = ExtResource("1_ur6l4")
+
+[node name="Hurtbox" type="Area2D" parent="."]
+script = ExtResource("2_0g0tg")
+metadata/_custom_type_script = "uid://qjrnpv4tbvkp"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Hurtbox"]
+polygon = PackedVector2Array(-9, 0, -9, -2, 0, -8, -9, -10, -9, -14, 7, -15, 8, -11, 3, -5, 9, -2, 9, 0)
+
+[node name="Hitbox" type="Area2D" parent="."]
+script = ExtResource("3_4if56")
+metadata/_custom_type_script = "uid://cqxr3go31xf5c"
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Hitbox"]
+polygon = PackedVector2Array(-9, 0, -9, -2, 0, -8, -9, -10, -9, -14, 7, -15, 8, -11, 3, -5, 9, -2, 9, 0)

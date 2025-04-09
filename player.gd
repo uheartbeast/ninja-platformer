@@ -5,9 +5,9 @@ enum STATE { MOVE, CLIMB }
 @export var state: = STATE.CLIMB
 
 @export var max_speed: = 120
-@export var acceleration: = 1000
+@export var acceleration: = 10000
 @export var air_acceleration: = 2000
-@export var friction: = 1000
+@export var friction: = 10000
 @export var air_friction: = 500
 @export var up_gravity: = 500
 @export var down_gravity: = 600
