@@ -1,8 +1,13 @@
-[gd_scene load_steps=20 format=3 uid="uid://bl7cbq2ma5mjj"]
+[gd_scene load_steps=23 format=3 uid="uid://bl7cbq2ma5mjj"]
 
 [ext_resource type="Script" uid="uid://b4xqkm8dmmdgk" path="res://player.gd" id="1_i3pqv"]
 [ext_resource type="Texture2D" uid="uid://ctx0v1ampqc8a" path="res://ninja_upper.png" id="2_hqtel"]
 [ext_resource type="Texture2D" uid="uid://bch8duwf6eai4" path="res://ninja_lower.png" id="3_sweqy"]
+[ext_resource type="Script" uid="uid://cqxr3go31xf5c" path="res://hitbox.gd" id="4_hqtel"]
+[ext_resource type="Script" uid="uid://qjrnpv4tbvkp" path="res://hurtbox.gd" id="5_sweqy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2hs0m"]
+size = Vector2(8, 18)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_aqk2v"]
 size = Vector2(12, 20)
@@ -22,6 +27,18 @@ tracks/0/keys = {
 "update": 1,
 "values": [0]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Anchor/Hitbox/CollisionPolygon2D:polygon")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [PackedVector2Array()]
+}
 
 [sub_resource type="Animation" id="Animation_nvl01"]
 resource_name = "attack"
@@ -38,6 +55,18 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
 "values": [7, 8, 9]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Anchor/Hitbox/CollisionPolygon2D:polygon")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [PackedVector2Array(8, -10, 19, -10, 28, -13, 30, -15, 30, -19, 28, -21, 21, -24, 7, -26, 1, -24, 13, -22, 19, -19, 19, -16, 12, -12), PackedVector2Array(1, -25, 19, -25, 19, -26, 16, -27, 4, -27, 1, -26), PackedVector2Array()]
 }
 
 [sub_resource type="Animation" id="Animation_urp6f"]
@@ -254,7 +283,6 @@ _data = {
 z_index = 50
 script = ExtResource("1_i3pqv")
 state = 0
-metadata/_edit_group_ = true
 
 [node name="Anchor" type="Node2D" parent="."]
 
@@ -279,6 +307,24 @@ target_position = Vector2(2, 0)
 [node name="RayCastLower" type="RayCast2D" parent="Anchor"]
 position = Vector2(5, -5)
 target_position = Vector2(2, 0)
+
+[node name="Hitbox" type="Area2D" parent="Anchor"]
+collision_layer = 0
+collision_mask = 16
+script = ExtResource("4_hqtel")
+metadata/_custom_type_script = "uid://cqxr3go31xf5c"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Anchor/Hitbox"]
+
+[node name="Hurtbox" type="Area2D" parent="Anchor"]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("5_sweqy")
+metadata/_custom_type_script = "uid://qjrnpv4tbvkp"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Anchor/Hurtbox"]
+position = Vector2(0, -11)
+shape = SubResource("RectangleShape2D_2hs0m")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -10)
