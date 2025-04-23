@@ -27,3 +27,6 @@ metadata/_edit_lock_ = true
 
 [node name="EnemyCannon" parent="." instance=ExtResource("3_tlwt5")]
 position = Vector2(248, 128)
+
+[node name="EnemyCannon2" parent="." instance=ExtResource("3_tlwt5")]
+position = Vector2(176, 128)

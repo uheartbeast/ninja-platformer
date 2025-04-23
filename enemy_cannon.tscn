@@ -1,12 +1,19 @@
-[gd_scene load_steps=5 format=3 uid="uid://bxgl1x4tatpqj"]
+[gd_scene load_steps=7 format=3 uid="uid://bxgl1x4tatpqj"]
 
 [ext_resource type="Script" uid="uid://ot6ak1pgga4m" path="res://enemy_cannon.gd" id="1_0g0tg"]
 [ext_resource type="Texture2D" uid="uid://br8ixo1amaprg" path="res://cannon_enemy.png" id="1_ur6l4"]
 [ext_resource type="Script" uid="uid://qjrnpv4tbvkp" path="res://hurtbox.gd" id="2_0g0tg"]
+[ext_resource type="Script" uid="uid://2i8vukneqwu1" path="res://stats.gd" id="2_ssugy"]
 [ext_resource type="Script" uid="uid://cqxr3go31xf5c" path="res://hitbox.gd" id="3_4if56"]
+
+[sub_resource type="Resource" id="Resource_a4fqf"]
+script = ExtResource("2_ssugy")
+health = 3
+metadata/_custom_type_script = "uid://2i8vukneqwu1"
 
 [node name="EnemyCannon" type="Node2D"]
 script = ExtResource("1_0g0tg")
+stats = SubResource("Resource_a4fqf")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -8)
