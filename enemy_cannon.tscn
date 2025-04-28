@@ -1,21 +1,61 @@
-[gd_scene load_steps=7 format=3 uid="uid://bxgl1x4tatpqj"]
+[gd_scene load_steps=11 format=3 uid="uid://bxgl1x4tatpqj"]
 
 [ext_resource type="Script" uid="uid://ot6ak1pgga4m" path="res://enemy_cannon.gd" id="1_0g0tg"]
 [ext_resource type="Texture2D" uid="uid://br8ixo1amaprg" path="res://cannon_enemy.png" id="1_ur6l4"]
 [ext_resource type="Script" uid="uid://qjrnpv4tbvkp" path="res://hurtbox.gd" id="2_0g0tg"]
 [ext_resource type="Script" uid="uid://2i8vukneqwu1" path="res://stats.gd" id="2_ssugy"]
 [ext_resource type="Script" uid="uid://cqxr3go31xf5c" path="res://hitbox.gd" id="3_4if56"]
+[ext_resource type="Material" uid="uid://dx10wnlxgh3sb" path="res://effects_material.tres" id="3_a4fqf"]
 
 [sub_resource type="Resource" id="Resource_a4fqf"]
 script = ExtResource("2_ssugy")
 health = 3
 metadata/_custom_type_script = "uid://2i8vukneqwu1"
 
+[sub_resource type="Animation" id="Animation_a4fqf"]
+resource_name = "hitflash"
+length = 0.2
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/flash_enabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_d8mcu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/flash_enabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_g0dkq"]
+_data = {
+&"RESET": SubResource("Animation_d8mcu"),
+&"hitflash": SubResource("Animation_a4fqf")
+}
+
 [node name="EnemyCannon" type="Node2D"]
 script = ExtResource("1_0g0tg")
 stats = SubResource("Resource_a4fqf")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+material = ExtResource("3_a4fqf")
 position = Vector2(0, -8)
 texture = ExtResource("1_ur6l4")
 
@@ -36,3 +76,8 @@ metadata/_custom_type_script = "uid://cqxr3go31xf5c"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Hitbox"]
 polygon = PackedVector2Array(-9, 0, -9, -2, 0, -8, -9, -10, -9, -14, 7, -15, 8, -11, 3, -5, 9, -2, 9, 0)
+
+[node name="EffectsAnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_g0dkq")
+}
