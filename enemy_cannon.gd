@@ -1,6 +1,6 @@
 extends Node2D
 
-var sh
+const SPARK_PARTICLE_BURST_EFFECT = preload("res://sparks_particle_burst_effect.tscn")
 
 @export var stats: Stats :
 	set(value):
@@ -17,6 +17,9 @@ var sh
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	hurtbox.hurt.connect(func(other_hitbox: Hitbox):
+		var spark_particle = SPARK_PARTICLE_BURST_EFFECT.instantiate()
+		get_tree().current_scene.add_child(spark_particle)
+		spark_particle.global_position = sprite_2d.global_position
 		stats.health -= other_hitbox.damage
 		effects_animation_player.play("hitflash")
 		shaker.shake(2.0, 0.2)
