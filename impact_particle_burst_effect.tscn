@@ -1,0 +1,32 @@
+[gd_scene load_steps=8 format=3 uid="uid://uoeft17mgaho"]
+
+[ext_resource type="Script" uid="uid://b4cl0tj8eteux" path="res://particle_burst.gd" id="1_cmd1t"]
+[ext_resource type="Texture2D" uid="uid://kgfr5ltw6chr" path="res://impact_effect.png" id="1_k43q3"]
+
+[sub_resource type="Gradient" id="Gradient_7ffuc"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_cdbnd"]
+gradient = SubResource("Gradient_7ffuc")
+
+[sub_resource type="Curve" id="Curve_krofb"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -3.24984, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_lr16a"]
+curve = SubResource("Curve_krofb")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_l8j4o"]
+particle_flag_disable_z = true
+emission_shape_offset = Vector3(-6, 0, 0)
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_lr16a")
+color_ramp = SubResource("GradientTexture1D_cdbnd")
+
+[node name="ImpactParticleBurstEffect" type="GPUParticles2D"]
+amount = 1
+texture = ExtResource("1_k43q3")
+lifetime = 0.25
+process_material = SubResource("ParticleProcessMaterial_l8j4o")
+script = ExtResource("1_cmd1t")
+metadata/_custom_type_script = "uid://b4cl0tj8eteux"
