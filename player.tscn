@@ -1,6 +1,7 @@
-[gd_scene load_steps=23 format=3 uid="uid://bl7cbq2ma5mjj"]
+[gd_scene load_steps=27 format=3 uid="uid://bl7cbq2ma5mjj"]
 
 [ext_resource type="Script" uid="uid://b4xqkm8dmmdgk" path="res://player.gd" id="1_i3pqv"]
+[ext_resource type="Material" uid="uid://dx10wnlxgh3sb" path="res://effects_material.tres" id="2_2hs0m"]
 [ext_resource type="Texture2D" uid="uid://ctx0v1ampqc8a" path="res://ninja_upper.png" id="2_hqtel"]
 [ext_resource type="Texture2D" uid="uid://bch8duwf6eai4" path="res://ninja_lower.png" id="3_sweqy"]
 [ext_resource type="Script" uid="uid://cqxr3go31xf5c" path="res://hitbox.gd" id="4_hqtel"]
@@ -279,6 +280,116 @@ _data = {
 &"stand": SubResource("Animation_sweqy")
 }
 
+[sub_resource type="Animation" id="Animation_u1c27"]
+resource_name = "hitflash"
+length = 0.5
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Anchor/SpriteUpper:material:shader_parameter/flash_enabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Anchor/SpriteLower:material:shader_parameter/flash_enabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Anchor/Hurtbox:is_invincible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:state")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_op7ga"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Anchor/SpriteUpper:material:shader_parameter/flash_enabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Anchor/SpriteLower:material:shader_parameter/flash_enabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Anchor/Hurtbox:is_invincible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:state")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_op7ga"]
+_data = {
+&"RESET": SubResource("Animation_op7ga"),
+&"hitflash": SubResource("Animation_u1c27")
+}
+
 [node name="Player" type="CharacterBody2D"]
 z_index = 50
 script = ExtResource("1_i3pqv")
@@ -288,12 +399,14 @@ state = 0
 
 [node name="SpriteUpper" type="Sprite2D" parent="Anchor"]
 z_index = 1
+material = ExtResource("2_2hs0m")
 position = Vector2(-2, -13)
 texture = ExtResource("2_hqtel")
 offset = Vector2(16, 0)
 hframes = 15
 
 [node name="SpriteLower" type="Sprite2D" parent="Anchor"]
+material = ExtResource("2_2hs0m")
 position = Vector2(-2, -13)
 texture = ExtResource("3_sweqy")
 offset = Vector2(16, 0)
@@ -338,4 +451,9 @@ libraries = {
 [node name="AnimationPlayerLower" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_sweqy")
+}
+
+[node name="EffectsAnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_op7ga")
 }
