@@ -1,11 +1,17 @@
-[gd_scene load_steps=27 format=3 uid="uid://bl7cbq2ma5mjj"]
+[gd_scene load_steps=29 format=3 uid="uid://bl7cbq2ma5mjj"]
 
 [ext_resource type="Script" uid="uid://b4xqkm8dmmdgk" path="res://player.gd" id="1_i3pqv"]
+[ext_resource type="Script" uid="uid://2i8vukneqwu1" path="res://stats.gd" id="2_1jxqw"]
 [ext_resource type="Material" uid="uid://dx10wnlxgh3sb" path="res://effects_material.tres" id="2_2hs0m"]
 [ext_resource type="Texture2D" uid="uid://ctx0v1ampqc8a" path="res://ninja_upper.png" id="2_hqtel"]
 [ext_resource type="Texture2D" uid="uid://bch8duwf6eai4" path="res://ninja_lower.png" id="3_sweqy"]
 [ext_resource type="Script" uid="uid://cqxr3go31xf5c" path="res://hitbox.gd" id="4_hqtel"]
 [ext_resource type="Script" uid="uid://qjrnpv4tbvkp" path="res://hurtbox.gd" id="5_sweqy"]
+
+[sub_resource type="Resource" id="Resource_dw050"]
+script = ExtResource("2_1jxqw")
+health = 3
+metadata/_custom_type_script = "uid://2i8vukneqwu1"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2hs0m"]
 size = Vector2(8, 18)
@@ -280,6 +286,57 @@ _data = {
 &"stand": SubResource("Animation_sweqy")
 }
 
+[sub_resource type="Animation" id="Animation_op7ga"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Anchor/SpriteUpper:material:shader_parameter/flash_enabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Anchor/SpriteLower:material:shader_parameter/flash_enabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Anchor/Hurtbox:is_invincible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:state")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
 [sub_resource type="Animation" id="Animation_u1c27"]
 resource_name = "hitflash"
 length = 0.5
@@ -333,57 +390,6 @@ tracks/3/keys = {
 "values": [0]
 }
 
-[sub_resource type="Animation" id="Animation_op7ga"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Anchor/SpriteUpper:material:shader_parameter/flash_enabled")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Anchor/SpriteLower:material:shader_parameter/flash_enabled")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Anchor/Hurtbox:is_invincible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath(".:state")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_op7ga"]
 _data = {
 &"RESET": SubResource("Animation_op7ga"),
@@ -393,6 +399,7 @@ _data = {
 [node name="Player" type="CharacterBody2D"]
 z_index = 50
 script = ExtResource("1_i3pqv")
+stats = SubResource("Resource_dw050")
 state = 0
 
 [node name="Anchor" type="Node2D" parent="."]
@@ -457,3 +464,6 @@ libraries = {
 libraries = {
 &"": SubResource("AnimationLibrary_op7ga")
 }
+
+[node name="Camera2D" type="Camera2D" parent="."]
+offset = Vector2(0, -16)

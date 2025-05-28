@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 enum STATE { MOVE, CLIMB, HIT }
 
+@export var stats: Stats
 @export var state: = STATE.CLIMB
 
 @export var max_speed: = 120
@@ -26,8 +27,14 @@ var coyote_time: = 0.0
 @onready var hurtbox: Hurtbox = $Anchor/Hurtbox
 @onready var shaker_upper: = Shaker.new(sprite_upper)
 @onready var shaker_lower: = Shaker.new(sprite_lower)
+@onready var camera_2d: Camera2D = $Camera2D
 
 func _ready() -> void:
+	stats.no_health.connect(func():
+		camera_2d.reparent(get_tree().current_scene)
+		queue_free()
+	)
+	
 	sprite_lower.material.set_shader_parameter("flash_color", Color("ff4d4d"))
 	
 	animation_player_lower.current_animation_changed.connect(func(animation_name: String):
@@ -51,6 +58,7 @@ func _ready() -> void:
 		shaker_lower.shake(3, 0.3)
 		animation_player_lower.play("jump")
 		effects_animation_player.play("hitflash")
+		stats.health -= other_hitbox.damage
 	)
 	
 
