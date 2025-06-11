@@ -2,6 +2,7 @@ extends Node2D
 
 const SPARK_PARTICLE_BURST_EFFECT = preload("res://sparks_particle_burst_effect.tscn")
 const IMPACT_PARTICLE_BURST_EFFECT = preload("res://impact_particle_burst_effect.tscn")
+const BULLET_SCENE = preload("res://bullet.tscn")
 
 @export var stats: Stats :
 	set(value):
@@ -14,6 +15,8 @@ const IMPACT_PARTICLE_BURST_EFFECT = preload("res://impact_particle_burst_effect
 @onready var effects_animation_player: AnimationPlayer = $EffectsAnimationPlayer
 
 @onready var shaker: = Shaker.new(sprite_2d)
+@onready var muzzle: Marker2D = $Muzzle
+@onready var timer: Timer = $Timer
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -34,3 +37,14 @@ func _ready() -> void:
 	stats.no_health.connect(func():
 		queue_free()
 	)
+	timer.timeout.connect(fire_bullet)
+	
+	randomize()
+	await get_tree().create_timer(randf_range(0, 2.0)).timeout
+	timer.start()
+
+func fire_bullet() -> void:
+	var bullet = BULLET_SCENE.instantiate()
+	get_tree().current_scene.add_child(bullet)
+	bullet.global_position = muzzle.global_position
+	bullet.direction = Vector2.LEFT

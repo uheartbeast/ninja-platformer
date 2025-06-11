@@ -81,3 +81,9 @@ polygon = PackedVector2Array(-9, 0, -9, -2, 0, -8, -9, -10, -9, -14, 7, -15, 8, 
 libraries = {
 &"": SubResource("AnimationLibrary_g0dkq")
 }
+
+[node name="Muzzle" type="Marker2D" parent="."]
+position = Vector2(-9, -12)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
